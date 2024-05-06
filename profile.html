@@ -1,0 +1,2161 @@
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="description"
+      content="Omnifood is an AI-powered food subscription that will make you eat healthy again, 365 days per year. It's tailored to your personal tastes and nutritional needs."
+    />
+
+    <!-- Always include this line of code!!! -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" href="img/favicon.png" />
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule=""
+      src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script
+      defer
+      src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"
+    ></script>
+    <script>
+console.log("Hello world!");
+
+const myName = "Jonas Schmedtmann";
+const h1 = document.querySelector(".heading-primary");
+console.log(myName);
+console.log(h1);
+
+// h1.addEventListener("click", function () {
+//   h1.textContent = myName;
+//   h1.style.backgroundColor = "red";
+//   h1.style.padding = "5rem";
+// });
+
+///////////////////////////////////////////////////////////
+// Set current year
+const yearEl = document.querySelector(".year");
+const currentYear = new Date().getFullYear();
+yearEl.textContent = currentYear;
+
+///////////////////////////////////////////////////////////
+// Make mobile navigation work
+
+const btnNavEl = document.querySelector(".btn-mobile-nav");
+const headerEl = document.querySelector(".header");
+
+btnNavEl.addEventListener("click", function () {
+  headerEl.classList.toggle("nav-open");
+});
+
+///////////////////////////////////////////////////////////
+// Smooth scrolling animation
+
+const allLinks = document.querySelectorAll("a:link");
+
+allLinks.forEach(function (link) {
+  link.addEventListener("click", function (e) {
+    e.preventDefault();
+    const href = link.getAttribute("href");
+
+    // Scroll back to top
+    if (href === "#")
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+
+    // Scroll to other links
+    if (href !== "#" && href.startsWith("#")) {
+      const sectionEl = document.querySelector(href);
+      sectionEl.scrollIntoView({ behavior: "smooth" });
+    }
+
+    // Close mobile naviagtion
+    if (link.classList.contains("main-nav-link"))
+      headerEl.classList.toggle("nav-open");
+  });
+});
+
+///////////////////////////////////////////////////////////
+// Sticky navigation
+
+const sectionHeroEl = document.querySelector(".section-hero");
+
+const obs = new IntersectionObserver(
+  function (entries) {
+    const ent = entries[0];
+    console.log(ent);
+
+    if (ent.isIntersecting === false) {
+      document.body.classList.add("sticky");
+    }
+
+    if (ent.isIntersecting === true) {
+      document.body.classList.remove("sticky");
+    }
+  },
+  {
+    // In the viewport
+    root: null,
+    threshold: 0,
+    rootMargin: "-80px",
+  }
+);
+obs.observe(sectionHeroEl);
+
+///////////////////////////////////////////////////////////
+// Fixing flexbox gap property missing in some Safari versions
+function checkFlexGap() {
+  var flex = document.createElement("div");
+  flex.style.display = "flex";
+  flex.style.flexDirection = "column";
+  flex.style.rowGap = "1px";
+
+  flex.appendChild(document.createElement("div"));
+  flex.appendChild(document.createElement("div"));
+
+  document.body.appendChild(flex);
+  var isSupported = flex.scrollHeight === 1;
+  flex.parentNode.removeChild(flex);
+  console.log(isSupported);
+
+  if (!isSupported) document.body.classList.add("no-flexbox-gap");
+}
+checkFlexGap();
+
+// https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js
+
+/*
+.no-flexbox-gap .main-nav-list li:not(:last-child) {
+  margin-right: 4.8rem;
+}
+
+.no-flexbox-gap .list-item:not(:last-child) {
+  margin-bottom: 1.6rem;
+}
+
+.no-flexbox-gap .list-icon:not(:last-child) {
+  margin-right: 1.6rem;
+}
+
+.no-flexbox-gap .delivered-faces {
+  margin-right: 1.6rem;
+}
+
+.no-flexbox-gap .meal-attribute:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+.no-flexbox-gap .meal-icon {
+  margin-right: 1.6rem;
+}
+
+.no-flexbox-gap .footer-row div:not(:last-child) {
+  margin-right: 6.4rem;
+}
+
+.no-flexbox-gap .social-links li:not(:last-child) {
+  margin-right: 2.4rem;
+}
+
+.no-flexbox-gap .footer-nav li:not(:last-child) {
+  margin-bottom: 2.4rem;
+}
+
+@media (max-width: 75em) {
+  .no-flexbox-gap .main-nav-list li:not(:last-child) {
+    margin-right: 3.2rem;
+  }
+}
+
+@media (max-width: 59em) {
+  .no-flexbox-gap .main-nav-list li:not(:last-child) {
+    margin-right: 0;
+    margin-bottom: 4.8rem;
+  }
+}
+*/</script>
+
+    <title>Zyper-AI Website Builder</title>
+<style>
+/**************************/
+/* HEADER */
+/**************************/
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #eecfb8;
+
+  /* Because we want header to be sticky later */
+  height: 9.6rem;
+  padding: 0 4.8rem;
+  position: relative;
+}
+
+.logo {
+  height: 2.2rem;
+}
+
+/**************************/
+/* NAVIGATION */
+/**************************/
+
+.main-nav-list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 4.8rem;
+}
+
+.main-nav-link:link,
+.main-nav-link:visited {
+  display: inline-block;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 1.8rem;
+  transition: all 0.3s;
+}
+
+.main-nav-link:hover,
+.main-nav-link:active {
+  color: #cf711f;
+}
+
+.main-nav-link.nav-cta:link,
+.main-nav-link.nav-cta:visited {
+  padding: 1.2rem 2.4rem;
+  border-radius: 9px;
+  color: #fff;
+  background-color: #e67e22;
+}
+
+.main-nav-link.nav-cta:hover,
+.main-nav-link.nav-cta:active {
+  background-color: #cf711f;
+}
+
+/* MOBILE */
+.btn-mobile-nav {
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  display: none;
+}
+
+.icon-mobile-nav {
+  height: 4.8rem;
+  width: 4.8rem;
+  color: #333;
+}
+
+.icon-mobile-nav[name="close-outline"] {
+  display: none;
+}
+
+/* STICKY NAVIGATION */
+.sticky .header {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 8rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(255, 255, 255, 0.97);
+  z-index: 999;
+  box-shadow: 0 1.2rem 3.2rem rgba(0, 0, 0, 0.03);
+}
+
+.sticky .section-hero {
+  margin-top: 9.6rem;
+}
+
+/**************************/
+/* HERO SECTION */
+/**************************/
+
+.section-hero {
+  background-color: #fdf2e9;
+  padding: 4.8rem 0 9.6rem 0;
+}
+
+.hero {
+  max-width: 130rem;
+  margin: 0 auto;
+  padding: 0 3.2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9.6rem;
+  align-items: center;
+}
+
+.hero-description {
+  font-size: 2rem;
+  line-height: 1.6;
+  margin-bottom: 4.8rem;
+}
+
+.hero-img {
+  width: 100%;
+}
+
+.delivered-meals {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  margin-top: 8rem;
+}
+
+.delivered-imgs {
+  display: flex;
+}
+
+.delivered-imgs img {
+  height: 4.8rem;
+  width: 4.8rem;
+  border-radius: 50%;
+  margin-right: -1.6rem;
+  border: 3px solid #fdf2e9;
+}
+
+.delivered-imgs img:last-child {
+  margin: 0;
+}
+
+.delivered-text {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.delivered-text span {
+  color: #cf711f;
+  font-weight: 700;
+}
+
+/**************************/
+/* FEATURED IN SECTION */
+/**************************/
+
+.section-featured {
+  padding: 4.8rem 0 3.2rem 0;
+}
+
+.heading-featured-in {
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.75px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 2.4rem;
+  color: #888;
+}
+
+.logos {
+  display: flex;
+  justify-content: space-around;
+}
+
+.logos img {
+  height: 3.2rem;
+  filter: brightness(0);
+  opacity: 50%;
+}
+
+/**************************/
+/* HOW IT WORKS SECTION */
+/**************************/
+
+.section-how {
+  padding: 9.6rem 0;
+}
+
+.step-number {
+  font-size: 8.6rem;
+  font-weight: 600;
+  color: #bab9b9;
+  margin-bottom: 1.2rem;
+}
+
+.step-description {
+  font-size: 1.8rem;
+  line-height: 1.8;
+}
+
+.step-img-box {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-img-box::before,
+.step-img-box::after {
+  content: "";
+  display: block;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.step-img-box::before {
+  width: 60%;
+  /* height: 60%; */
+
+  /* 60% of parent's width */
+  padding-bottom: 60%;
+
+  background-color: #fdf2e9;
+  z-index: -2;
+}
+
+.step-img-box::after {
+  width: 45%;
+  padding-bottom: 45%;
+  background-color: #fae5d3;
+  z-index: -1;
+}
+
+.step-img {
+  width: 35%;
+  /* z-index: 10; */
+}
+
+/**************************/
+/* MEALS SECTION */
+/**************************/
+
+.section-meals {
+  padding: 9.6rem 0;
+}
+
+.meal {
+  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.075);
+  border-radius: 11px;
+  overflow: hidden;
+  transition: all 0.4s;
+}
+
+.meal:hover {
+  transform: translateY(-1.2rem);
+  box-shadow: 0 3.2rem 6.4rem rgba(0, 0, 0, 0.06);
+}
+
+.meal-content {
+  padding: 3.2rem 4.8rem 4.8rem 4.8rem;
+}
+
+.meal-tags {
+  margin-bottom: 1.2rem;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: #333;
+  border-radius: 100px;
+  font-weight: 600;
+}
+
+.tag--vegetarian {
+  background-color: #00f128;
+}
+.tag--vegan {
+  background-color: #99ff00;
+}
+.tag--paleo {
+  background-color: #fad900;
+}
+
+.meal-title {
+  font-size: 2.4rem;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 3.2rem;
+}
+
+.meal-attributes {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.meal-attribute {
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.meal-icon {
+  height: 2.4rem;
+  width: 2.4rem;
+  color: #cfc912;
+}
+
+.meal-img {
+  width: 100%;
+}
+
+.all-recipes {
+  text-align: center;
+  font-size: 1.8rem;
+}
+.section-about {
+  padding: 80px 0;
+}
+
+.subheading {
+  font-size: 24px;
+  color: #333;
+}
+
+.heading-secondary {
+  font-size: 36px;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+}
+
+.about-description {
+  display: flex;
+  align-items: center;
+}
+
+.about-img {
+  width: 100%;
+  max-width: 1000px;
+  max-height: 500px;;
+  border-radius: 10px;
+}
+
+.about-content {
+  margin-left: 40px;
+}
+
+.about-text {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #666;
+}
+
+.about-values {
+  margin-top: 40px;
+}
+
+.heading-tertiary {
+  font-size: 24px;
+  color: #333;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.list-item {
+  margin-bottom: 10px;
+}
+
+.list-icon {
+  margin-right: 10px;
+  color: #007bff;
+}
+
+.link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.link:hover {
+  background-color: #0056b3;
+}
+
+/**************************/
+/* TESTIMONIALS SECTION */
+/**************************/
+
+.section-testimonials {
+  background-color: #fdf2e9;
+  display: grid;
+  grid-template-columns: 55fr 45fr;
+  align-items: center;
+}
+
+.testimonials-container {
+  padding: 9.6rem;
+}
+
+.testimonials {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 4.8rem;
+  column-gap: 8rem;
+}
+
+.testimonial-img {
+  width: 6.4rem;
+  border-radius: 50%;
+  margin-bottom: 1.2rem;
+}
+
+.testimonial-text {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  margin-bottom: 1.6rem;
+}
+
+.testimonial-name {
+  font-size: 1.6rem;
+  color: #6f6f6f;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.6rem;
+  padding: 1.6rem;
+}
+
+.gallery-item {
+  overflow: hidden;
+}
+
+.gallery-item img {
+  display: block;
+  width: 100%;
+  transition: all 0.4s;
+}
+
+.gallery-item img:hover {
+  transform: scale(1.1);
+}
+
+/**************************/
+/* MEALS SECTION */
+/**************************/
+
+.section-pricing {
+  padding: 9.6rem 0;
+}
+
+.pricing-plan {
+  border-radius: 11px;
+
+  width: 75%;
+}
+
+.pricing-plan--starter {
+  justify-self: end;
+  border: 2px solid #fdf2e9;
+  padding: 4.6rem;
+}
+
+.pricing-plan--complete {
+  background-color: #fdf2e9;
+  padding: 4.8rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.pricing-plan--complete::after {
+  content: "Best value";
+  position: absolute;
+  top: 6%;
+  right: -18%;
+
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #333;
+  background-color: #ffd43b;
+  padding: 0.8rem 8rem;
+  transform: rotate(45deg);
+}
+
+.plan-header {
+  text-align: center;
+  margin-bottom: 4.8rem;
+}
+
+.plan-name {
+  color: #cf711f;
+  font-weight: 600;
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.75;
+  margin-bottom: 3.2rem;
+}
+
+.plan-price {
+  font-size: 6.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1.6rem;
+}
+
+.plan-price span {
+  font-size: 3rem;
+  font-weight: 500;
+  margin-right: 0.8rem;
+}
+
+.plan-text {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: #6f6f6f;
+}
+
+.plan-sing-up {
+  text-align: center;
+  margin-top: 4.8rem;
+}
+
+.plan-details {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.feature-icon {
+  color: #e67e22;
+  height: 3.2rem;
+  width: 3.2rem;
+  background-color: #fdf2e9;
+  margin-bottom: 3.2rem;
+  padding: 1.6rem;
+  border-radius: 50%;
+}
+
+.feature-title {
+  font-size: 2.4rem;
+  color: #333;
+  font-weight: 700;
+  margin-bottom: 1.6rem;
+}
+
+.feature-text {
+  font-size: 1.8rem;
+  line-height: 1.8;
+}
+
+/**************************/
+/* CTA SECTION */
+/**************************/
+
+.section-cta {
+  /* top / right / bottom / left */
+  /* padding: 9.6rem 0 12.8rem 0; */
+
+  /* top / horizontal / left */
+  padding: 4.8rem 0 12.8rem;
+}
+
+.cta {
+  display: grid;
+  /* 2/3 = 66.6% + 1/3 = 33.3% */
+  grid-template-columns: 2fr 1fr;
+  /* background-color: #e67e22; */
+  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.15);
+  border-radius: 11px;
+
+  background-image: linear-gradient(to right bottom, #eb984e, #e67e22);
+  overflow: hidden;
+}
+
+.cta-text-box {
+  padding: 4.8rem 6.4rem 6.4rem 6.4rem;
+  color: #45260a;
+}
+
+.cta .heading-secondary {
+  /* color: #45260a; */
+  color: inherit;
+  margin-bottom: 3.2rem;
+}
+
+.cta-text {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  margin-bottom: 4.8rem;
+}
+
+.cta-img-box {
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(235, 151, 78, 0.35),
+      rgba(230, 125, 34, 0.35)
+    ),
+    url("../img/eating.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.cta-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3.2rem;
+  row-gap: 2.4rem;
+}
+
+.cta-form label {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin-bottom: 1.2rem;
+}
+
+.cta-form input,
+.cta-form select {
+  width: 100%;
+  padding: 1.2rem;
+  font-size: 1.8rem;
+  font-family: inherit;
+  color: inherit;
+  border: none;
+  background-color: #fdf2e9;
+  border-radius: 9px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.cta-form input::placeholder {
+  color: #aaa;
+}
+
+.cta *:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.8rem rgba(253, 242, 233, 0.5);
+}
+
+/**************************/
+/* FOOTER */
+/**************************/
+
+.footer {
+  padding: 12.8rem 0;
+  border-top: 1px solid #eee;
+}
+
+.grid--footer {
+  grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr;
+}
+
+.logo-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo {
+  display: block;
+  margin-bottom: 3.2rem;
+}
+
+.social-links {
+  list-style: none;
+  display: flex;
+  gap: 2.4rem;
+}
+
+.social-icon {
+  height: 2.4rem;
+  width: 2.4rem;
+}
+
+.copyright {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: #767676;
+  margin-top: auto;
+}
+
+.footer-heading {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 4rem;
+}
+
+.contacts {
+  font-style: normal;
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+.address {
+  margin-bottom: 2.4rem;
+}
+
+.footer-nav {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.footer-link:link,
+.footer-link:visited {
+  text-decoration: none;
+  font-size: 1.6rem;
+  color: #767676;
+  transition: all 0.3s;
+}
+
+.footer-link:hover,
+.footer-link:active {
+  color: #555;
+}
+/*
+--- 01 TYPOGRAPHY SYSTEM
+
+- Font sizes (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
+- Font weights
+Default: 400
+Medium: 500
+Semi-bold: 600
+Bold: 700
+
+- Line heights
+Default: 1
+Small: 1.05
+Medium: 1.2
+Paragraph default: 1.6
+Large: 1.8
+
+- Letter spacing
+-0.5px
+0.75px
+
+--- 02 COLORS
+
+- Primary: #e67e22
+- Tints:
+#fdf2e9
+#fae5d3
+#eb984e
+
+- Shades: 
+#cf711f
+#45260a
+
+- Accents:
+- Greys
+
+#888
+#767676 (lightest grey allowed on #fff)
+#6f6f6f (lightest grey allowed on #fdf2e9)
+#555
+#333
+
+--- 05 SHADOWS
+
+0 2.4rem 4.8rem rgba(0, 0, 0, 0.075);
+
+--- 06 BORDER-RADIUS
+
+Default: 9px
+Medium: 11px
+
+--- 07 WHITESPACE
+
+- Spacing system (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+*/
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  /* font-size: 10px; */
+
+  /* 10px / 16px = 0.625 = 62.5% */
+  /* Percentage of user's browser font-size setting */
+  font-size: 62.5%;
+  overflow-x: hidden;
+
+  /* Does NOT work on Safari */
+  /* scroll-behavior: smooth; */
+}
+
+body {
+  font-family: "Rubik", sans-serif;
+  line-height: 1;
+  font-weight: 400;
+  color: #555;
+
+  /* Only works if there is nothing absolutely positioned in relation to body */
+  overflow-x: hidden;
+}
+
+/**************************/
+/* GENRAL REUSABLE COMPONENTS */
+/**************************/
+
+.container {
+  /* 1140px */
+  max-width: 120rem;
+  padding: 0 3.2rem;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  column-gap: 6.4rem;
+  row-gap: 9.6rem;
+
+  /* margin-bottom: 9.6rem; */
+}
+
+/* .grid:last-child {
+  margin-bottom: 0;
+} */
+
+.grid:not(:last-child) {
+  margin-bottom: 9.6rem;
+}
+
+.grid--2-cols {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid--3-cols {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid--4-cols {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* .grid--5-cols {
+  grid-template-columns: repeat(5, 1fr);
+} */
+
+.grid--center-v {
+  align-items: center;
+}
+
+.heading-primary,
+.heading-secondary,
+.heading-tertiary {
+  font-weight: 700;
+  color: #333;
+  /* color: #45260a; */
+  /* color: #343a40; */
+  letter-spacing: -0.5px;
+}
+
+.heading-primary {
+  font-size: 5.2rem;
+  line-height: 1.05;
+  margin-bottom: 3.2rem;
+}
+
+.heading-secondary {
+  font-size: 4.4rem;
+  line-height: 1.2;
+  margin-bottom: 9.6rem;
+}
+
+.heading-tertiary {
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 3.2rem;
+}
+
+.subheading {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #cf711f;
+  text-transform: uppercase;
+  margin-bottom: 1.6rem;
+  letter-spacing: 0.75px;
+}
+
+.btn,
+.btn:link,
+.btn:visited {
+  display: inline-block;
+
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: 600;
+  padding: 1.6rem 3.2rem;
+  border-radius: 9px;
+
+  /* Only necessary for .btn */
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+
+  /* Put transition on original "state" */
+  /* transition: background-color 0.3s; */
+  transition: all 0.3s;
+}
+
+.btn--full:link,
+.btn--full:visited {
+  background-color: #e67e22;
+  color: #fff;
+}
+
+.btn--full:hover,
+.btn--full:active {
+  background-color: #cf711f;
+}
+
+.btn--outline:link,
+.btn--outline:visited {
+  background-color: #fff;
+  color: #555;
+}
+
+.btn--outline:hover,
+.btn--outline:active {
+  background-color: #fdf2e9;
+
+  /* border: 3px solid #fff; */
+
+  /* Trick to add border inside */
+  box-shadow: inset 0 0 0 3px #fff;
+}
+
+.btn--form {
+  background-color: #45260a;
+  color: #fdf2e9;
+  align-self: end;
+  padding: 1.2rem;
+}
+
+.btn--form:hover {
+  background-color: #fff;
+  color: #555;
+}
+
+.link:link,
+.link:visited {
+  display: inline-block;
+  color: #e67e22;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+  transition: all 0.3s;
+}
+
+.link:hover,
+.link:active {
+  color: #cf711f;
+  border-bottom: 1px solid transparent;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.list-item {
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  line-height: 1.2;
+}
+
+.list-icon {
+  width: 3rem;
+  height: 3rem;
+  color: #e67e22;
+}
+
+*:focus {
+  outline: none;
+  /* outline: 4px dotted #e67e22; */
+  /* outline-offset: 8px; */
+  box-shadow: 0 0 0 0.8rem rgba(230, 125, 34, 0.5);
+}
+
+/* HELPER/SETTINGS CLASSES */
+.margin-right-sm {
+  margin-right: 1.6rem !important;
+}
+
+.margin-bottom-md {
+  margin-bottom: 4.8rem !important;
+}
+
+.center-text {
+  text-align: center;
+}
+
+strong {
+  font-weight: 500;
+}
+/* rem and em do NOT depend on html font-size in media queries! Instead, 1rem = 1em = 16px */
+
+/**************************/
+/* BELOW 1344px (Smaller desktops) */
+/**************************/
+
+@media (max-width: 84em) {
+  .hero {
+    max-width: 120rem;
+  }
+
+  .heading-primary {
+    font-size: 4.4rem;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/**************************/
+/* BELOW 1200px (Landscape Tablets) */
+/**************************/
+
+@media (max-width: 75em) {
+  html {
+    /* 9px / 16px  */
+    font-size: 56.25%;
+  }
+
+  .grid {
+    column-gap: 4.8rem;
+    row-gap: 6.4rem;
+  }
+
+  .heading-secondary {
+    font-size: 3.6rem;
+  }
+
+  .heading-tertiary {
+    font-size: 2.4rem;
+  }
+
+  .header {
+    padding: 0 3.2rem;
+  }
+
+  .main-nav-list {
+    gap: 3.2rem;
+  }
+
+  .hero {
+    gap: 4.8rem;
+  }
+
+  .testimonials-container {
+    padding: 9.6rem 3.2rem;
+  }
+}
+
+/**************************/
+/* BELOW 944px (Tablets) */
+/**************************/
+
+@media (max-width: 59em) {
+  html {
+    /* 8px / 16px = 0.5 = 50% */
+    font-size: 50%;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 0 8rem;
+    gap: 6.4rem;
+  }
+
+  .hero-text-box,
+  .hero-img-box {
+    text-align: center;
+  }
+
+  .hero-img {
+    width: 60%;
+  }
+
+  .delivered-meals {
+    justify-content: center;
+    margin-top: 3.2rem;
+  }
+
+  .logos img {
+    height: 2.4rem;
+  }
+
+  .step-number {
+    font-size: 7.4rem;
+  }
+
+  .meal-content {
+    padding: 2.4rem 3.2rem 3.2rem 3.2rem;
+  }
+
+  .section-testimonials {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .cta {
+    /* 3/5 = 60% + 2/5 = 40% */
+    grid-template-columns: 3fr 2fr;
+  }
+
+  .cta-form {
+    grid-template-columns: 1fr;
+  }
+
+  .btn--form {
+    margin-top: 1.2rem;
+  }
+
+  /* MOBILE NAVIGATION */
+  .btn-mobile-nav {
+    display: block;
+    z-index: 9999;
+  }
+
+  .main-nav {
+    background-color: rgba(255, 255, 123, 0.9);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    transform: translateX(100%);
+
+    display: flex;
+    align-items: left;
+    justify-content: center;
+    transition: all 0.5s ease-in;
+
+    /* Hide navigation */
+    /* Allows NO transitions at all */
+    /* display: none; */
+
+    /* 1) Hide it visually */
+    opacity: 0;
+
+    /* 2) Make it unaccessible to mouse and keyboard */
+    pointer-events: none;
+
+    /* 3) Hide it from screen readers */
+    visibility: hidden;
+  }
+
+  .nav-open .main-nav {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    transform: translateX(0);
+  }
+
+  .nav-open .icon-mobile-nav[name="close-outline"] {
+    display: block;
+  }
+
+  .nav-open .icon-mobile-nav[name="menu-outline"] {
+    display: none;
+  }
+
+  .main-nav-list {
+    flex-direction: column;
+    gap: 4.8rem;
+  }
+
+  .main-nav-link:link,
+  .main-nav-link:visited {
+    font-size: 3rem;
+  }
+}
+
+/**************************/
+/* BELOW 704px (Smaller tablets) */
+/**************************/
+
+@media (max-width: 44em) {
+  .grid--3-cols,
+  .grid--4-cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .diets {
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+
+  .heading-secondary {
+    margin-bottom: 4.8rem;
+  }
+
+  .pricing-plan {
+    width: 100%;
+  }
+
+  .grid--footer {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .logo-col,
+  .address-col {
+    grid-column: span 3;
+  }
+
+  .nav-col {
+    grid-row: 1;
+    grid-column: span 2;
+    margin-bottom: 3.2rem;
+  }
+}
+
+/**************************/
+/* BELOW 544px (Phones) */
+/**************************/
+
+@media (max-width: 34em) {
+  .grid {
+    row-gap: 4.8rem;
+  }
+
+  .grid--2-cols,
+  .grid--3-cols,
+  .grid--4-cols {
+    grid-template-columns: 1fr;
+  }
+
+  .btn,
+  .btn:link,
+  .btn:visited {
+    padding: 2.4rem 1.6rem;
+  }
+
+  .section-hero {
+    padding: 2.4rem 0 6.4rem 0;
+  }
+
+  .hero {
+    padding: 0 3.2rem;
+  }
+
+  .hero-img {
+    width: 80%;
+  }
+
+  .logos img {
+    height: 1.2rem;
+  }
+
+  .step-img-box:nth-child(2) {
+    grid-row: 1;
+  }
+
+  .step-img-box:nth-child(6) {
+    grid-row: 5;
+  }
+
+  .step-img-box {
+    transform: translateY(2.4rem);
+  }
+
+  .testimonials {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+  }
+
+  .cta {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-text-box {
+    padding: 3.2rem;
+  }
+
+  .cta-img-box {
+    height: 32rem;
+    grid-row: 1;
+  }
+}
+
+/* 
+- Font sizes (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
+- Spacing system (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+*/
+
+/**************************/
+/* Fixing Safari flexbox gap */
+/**************************/
+
+.no-flexbox-gap .main-nav-list li:not(:last-child) {
+  margin-right: 4.8rem;
+}
+
+.no-flexbox-gap .list-item:not(:last-child) {
+  margin-bottom: 1.6rem;
+}
+
+.no-flexbox-gap .list-icon:not(:last-child) {
+  margin-right: 1.6rem;
+}
+
+.no-flexbox-gap .delivered-faces {
+  margin-right: 1.6rem;
+}
+
+.no-flexbox-gap .meal-attribute:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+.no-flexbox-gap .meal-icon {
+  margin-right: 1.6rem;
+}
+
+.no-flexbox-gap .footer-row div:not(:last-child) {
+  margin-right: 6.4rem;
+}
+
+.no-flexbox-gap .social-links li:not(:last-child) {
+  margin-right: 2.4rem;
+}
+
+.no-flexbox-gap .footer-nav li:not(:last-child) {
+  margin-bottom: 2.4rem;
+}
+
+@media (max-width: 75em) {
+  .no-flexbox-gap .main-nav-list li:not(:last-child) {
+    margin-right: 3.2rem;
+  }
+}
+
+@media (max-width: 59em) {
+  .no-flexbox-gap .main-nav-list li:not(:last-child) {
+    margin-right: 0;
+    margin-bottom: 4.8rem;
+  }
+}
+</style>
+  </head>
+  <body>
+    {% load static %}
+    <header class="header">
+      <a href="#">
+        <img class="logo" alt="Omnifood logo" src="data:image/png;base64,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" />
+      </a>
+
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li><a class="main-nav-link" href="#how">How it works</a></li>
+          <li><a class="main-nav-link" href="#meals">About</a></li>
+          <li>
+            <a class="main-nav-link" href="#testimonials">Testimonials</a>
+          </li>
+          <li><a class="main-nav-link" href="#pricing">Pricing</a></li>
+          <li>
+            {% if user.is_authenticated %}
+            {{ user.username }}!
+            <a href="/signout" class="main-nav-link nav-cta">Logout</a>
+          {% else %}
+            <a href="/signin" class="main-nav-link nav-cta">Login</a> 
+          {% endif %}</div>
+          </li>
+    
+        </ul>
+      </nav>
+
+      <button class="btn-mobile-nav">
+        <ion-icon class="icon-mobile-nav" name="menu-outline"></ion-icon>
+        <ion-icon class="icon-mobile-nav" name="close-outline"></ion-icon>
+      </button>
+    </header>
+
+    <main>
+      <section class="section-hero">
+        <div class="hero">
+          <div class="hero-text-box">
+            <h1 class="heading-primary">
+              Elevate Your Online Presence with Zyper, <p class="hero-description">The AI-Powered Website Builder</p>
+            </h1>
+            <p class="hero-description">
+              Unleash the power of artificial intelligence to create stunning websites effortlessly. Let Zyper transform your ideas into captivating online experiences.
+            </p>
+            {% if user.is_authenticated %}
+          
+            <a href="{% url 'form'%}" class="btn btn--full margin-right-sm">Generate Website</a>
+          {% else %}
+          <a href="/signin" class="btn btn--full margin-right-sm">Generate Website</a>
+          {% endif %}
+            
+            
+
+            <a href="#how" class="btn btn--outline">Learn more &darr;</a>
+            <div class="delivered-meals">
+              <div class="delivered-imgs">
+                <img src="{% static 'img/customers/customer-1.jpg' %}" alt="Customer photo" />
+                <img src="{% static 'img/customers/customer-2.jpg' %}" alt="Customer photo" />
+                <img src="{% static 'img/customers/customer-3.jpg' %}" alt="Customer photo" />
+                <img src="{% static 'img/customers/customer-4.jpg' %}" alt="Customer photo" />
+                <img src="{% static 'img/customers/customer-5.jpg' %}" alt="Customer photo" />
+                <img src="{% static 'img/customers/customer-6.jpg' %}" alt="Customer photo" />
+              </div>
+              <p class="delivered-text">
+                <span>25,000+</span> people elevated their Business!
+              </p>
+            </div>
+          </div>
+          <div class="hero-img-box">
+            <picture>
+              <source srcset="https://eep.io/images/yzco4xsimv0y/1jLvkI1ssXliXkyATh9h5D/0817e3e4d11f8b81d76d990d5bb81704/21_Website-Builder_AUI.png?w=1520&fm=avif&q=60" type="image/webp" />
+              <source srcset="img/hero-min.png" type="image/png" />
+
+              <img
+                src="https://eep.io/images/yzco4xsimv0y/1jLvkI1ssXliXkyATh9h5D/0817e3e4d11f8b81d76d990d5bb81704/21_Website-Builder_AUI.png?w=1520&fm=avif&q=60"
+                class="hero-img"
+                alt="Woman enjoying food, meals in storage container, and food bowls on a table"
+              />
+            </picture>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-featured">
+        <div class="container">
+          <h2 class="heading-featured-in">As featured in</h2>
+          <div class="logos">
+            <img src="{% static 'img/logos/techcrunch.png' %}" alt="Techcrunch logo" />
+            <img
+              src="{% static 'img/logos/business-insider.png' %}"
+              alt="Business Insider logo"
+            />
+            <img
+              src="{% static 'img/logos/the-new-york-times.png' %}"
+              alt="The New York Times logo"
+            />
+            <img src="{% static 'img/logos/forbes.png' %}" alt="Forbes logo" />
+            <img src="{% static 'img/logos/usa-today.png' %}" alt="USA Today logo" />
+          </div>
+        </div>
+    </section>
+
+      <section class="section-how" id="how">
+        <div class="container">
+          <span class="subheading">How it works</span>
+          <h2 class="heading-secondary">
+            Create a Website Using AI Text Prompts?
+          </h2>
+        </div>
+
+        <div class="container grid grid--2-cols grid--center-v">
+          <!-- STEP 01 -->
+          <div class="step-text-box">
+            <p class="step-number">01</p>
+            <h3 class="heading-tertiary">
+              Enter Text Prompt
+            </h3>
+            <p class="step-description">
+              Define the content you envision for your website. From text to images, specify the elements you want featured. Our AI-generated builder will seamlessly integrate your content, ensuring a cohesive and professional appearance. Describe your preferences, and watch as your website comes to life before your eyes.
+            </p>
+          </div>
+          <div class="step-img-box">
+            <img
+              src="https://w7.pngwing.com/pngs/974/272/png-transparent-blue-background-with-white-step-1-text-overlay-usmle-step-1-computer-icons-symbol-usmle-step-3-symbol-miscellaneous-blue-text-thumbnail.png"
+              class="step-img"
+              alt="iPhone app
+            preferences selection screen"
+            />
+          </div>
+          <div class="step-img-box">
+            <img
+              src="https://banner2.cleanpng.com/20180427/pqw/kisspng-usmle-step-1-computer-icons-symbol-usmle-step-3-5ae3e479e82b14.617134751524884601951.jpg"
+              class="step-img"
+              alt="iPhone app
+            meal approving plan screen"
+            />   
+          </div>
+          <div class="step-text-box">
+            <p class="step-number">02</p>
+            <h3 class="heading-tertiary">Click to Create</h3>
+            <p class="step-description">
+              Explore editing options effortlessly through layout, images, and content. With intuitive controls, refine your website's appearance and messaging to perfection. Whether adjusting layout elements, swapping images, or refining content, our platform empowers you to craft a website that reflects your unique vision with precision and ease.
+            </p>
+          </div>
+
+          <div class="step-text-box">
+            <p class="step-number">03</p>
+            <h3 class="heading-tertiary">Customize and Go Live</h3>
+            <p class="step-description">
+              Elevate your online presence with our premium feature. Once your website reflects your satisfaction, seamlessly link it to your chosen domain. Then, get ready to customize further, fine-tuning every detail to perfection. This exclusive capability ensures your digital creation reaches its full potential, captivating audiences with your unique vision and style.
+            </p>
+          </div>
+          <div class="step-img-box">
+            <img
+              src="https://banner2.cleanpng.com/20180422/vwe/kisspng-usmle-step-1-computer-icons-usmle-step-3-symbol-5adc135f9fa3c4.9615027815243723196539.jpg"
+              class="step-img"
+              alt="iPhone app
+            meal approving plan screen"
+            />
+        
+        </div>
+      </section>
+
+     <section class="section-about" id="about">
+  <div class="container center-text">
+    <span class="subheading">About Us</span>
+    <h2 class="heading-secondary">
+      Discover Our Story
+    </h2>
+  </div>
+
+  <div class="container grid grid--2-cols margin-bottom-md">
+    <div class="about-description">
+
+      <div class="about-content">
+        <p class="about-text">
+          At Zyper, we're on a mission to redefine website creation with our cutting-edge AI-powered platform. Our goal is to empower individuals and businesses to effortlessly build stunning websites that reflect their unique vision. Leveraging the latest advancements in artificial intelligence, Zyper offers intuitive customization options, mobile optimization, and round-the-clock support.
+        </p>
+        <p class="about-text">
+          Join the Zyper community today and embark on a journey of innovation and creativity in web design!
+        </p>
+      </div>
+    </div>
+
+    <div class="about-values">
+      
+      <img
+      src="https://www.blogtyrant.com/wp-content/uploads/2011/02/best-about-us-pages.png"
+      class="about-img"
+      alt="Our Story"
+    />
+    </div>
+  </div>
+
+  <div class="container">
+    <a href="#how" class="btn btn--outline">Learn more &darr;</a>
+  </div>
+</section>
+
+
+      <section class="section-testimonials" id="testimonials">
+        <div class="testimonials-container">
+          <span class="subheading">Testimonials</span>
+          <h2 class="heading-secondary">Voices of Delighted Zyper Users !</h2>
+
+          <div class="testimonials">
+            <figure class="testimonial">
+              <img
+                class="testimonial-img"
+                alt="Photo of customer Dave Bryson"
+                src="{% static 'img/customers/dave.jpg' %}"
+              />
+              <blockquote class="testimonial-text">
+                "Zyper has truly transformed the way I approach website design. As someone with limited technical skills, I was amazed it was to create a professional-looking site with their AI-powered platform!"
+              </blockquote>
+              <p class="testimonial-name">&mdash; Dave Bryson</p>
+            </figure>
+
+            <figure class="testimonial">
+              <img
+                class="testimonial-img"
+                alt="Photo of customer Ben Hadley"
+                src="{% static 'img/customers/ben.jpg'%}"
+              />
+              <blockquote class="testimonial-text">
+                "I've been using Zyper for my business website, and I couldn't be happier with the results. It offer a wide range of features and customization options."
+              </blockquote>
+              <p class="testimonial-name">&mdash; Ben Hadley</p>
+            </figure>
+
+            <figure class="testimonial">
+              <img
+                class="testimonial-img"
+                alt="Photo of customer Steve Miller"
+                src="{% static 'img/customers/steve.jpg' %}"
+              />
+              <blockquote class="testimonial-text">
+                "Zyper platform has truly revolutionized the way I showcase my products online. My website looks fantastic, and I've received numerous compliments from visitors!"
+              </blockquote>
+              <p class="testimonial-name">&mdash; Steve Miller</p>
+            </figure>
+
+            <figure class="testimonial">
+              <img
+                class="testimonial-img"
+                alt="Photo of customer Hannah Smith"
+                src="{% static 'img/customers/hannah.jpg' %}"
+              />
+              <blockquote class="testimonial-text">
+                "I've tried other website builders in the past, but Zyper stands out for its user-friendly interface and advanced AI capabilities. It's amazing I was able to create a professional website."
+              </blockquote>
+              <p class="testimonial-name">&mdash; Hannah Smith</p>
+            </figure>
+          </div>
+        </div>
+
+        <div class="gallery">
+          <figure class="gallery-item">
+            <img
+              src="https://images.appypie.com/wp-content/uploads/2022/04/12055329/store.png"
+              alt="Photo of beautifully
+            arranged food"
+            />
+            <!-- <figcaption>Caption</figcaption> -->
+          </figure>
+          <figure class="gallery-item">
+            <img
+              src="https://images.appypie.com/wp-content/uploads/2022/04/12055314/food-court.png"
+              alt="Photo of beautifully
+            arranged food"
+            />
+          </figure>
+          <figure class="gallery-item">
+            <img
+              src="https://images.appypie.com/wp-content/uploads/2022/04/12055307/dating.png"
+              alt="Photo of beautifully
+            arranged food"
+            />
+          </figure>
+          <figure class="gallery-item">
+            <img
+              src="https://images.appypie.com/wp-content/uploads/2022/04/12055325/social-media.png"
+              alt="Photo of beautifully
+            arranged food"
+            />
+          </figure>
+          <figure class="gallery-item">
+            <img
+              src="https://images.appypie.com/wp-content/uploads/2022/04/12055333/web3-website.png"
+              alt="Photo of beautifully
+            arranged food"
+            />
+          </figure>
+          <figure class="gallery-item">
+            <img
+              src="https://images.appypie.com/wp-content/uploads/2022/04/12055304/blog.png"
+              alt="Photo of beautifully
+            arranged food"
+            />
+          </figure>
+          <figure class="gallery-item">
+            <img
+              src="https://images.appypie.com/wp-content/uploads/2022/04/12055323/NFT-marketplace.png"
+              alt="Photo of beautifully
+            arranged food"
+            />
+          </figure>
+          <figure class="gallery-item">
+            <img
+              src="https://images.appypie.com/wp-content/uploads/2022/04/12055320/news.png"
+              alt="Photo of beautifully
+            arranged food"
+            />
+          </figure>
+          <figure class="gallery-item">
+            <img
+              src="https://www.appypie.com/wp-content/uploads/2023/12/200Powerful-Features.png"
+              alt="Photo of beautifully
+            arranged food"
+            />
+          </figure>
+          <figure class="gallery-item">
+            <img
+              src="https://www.appypie.com/wp-content/uploads/2023/12/Unlimited-Customization-Options.png"
+              alt="Photo of beautifully
+            arranged food"
+            />
+          </figure>
+          <figure class="gallery-item">
+            <img
+              src="https://www.appypie.com/wp-content/uploads/2023/12/Lightweight-Fast-Websites.png"
+              alt="Photo of beautifully
+            arranged food"
+            />
+          </figure>
+          <figure class="gallery-item">
+            <img
+              src="https://www.appypie.com/wp-content/uploads/2023/12/No-Code-Website-Development.png"
+              alt="Photo of beautifully
+            arranged food"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section class="section-pricing" id="pricing">
+        <div class="container">
+          <span class="subheading">Pricing</span>
+          <h2 class="heading-secondary">
+            Explore Our Wallet-Friendly Options
+          </h2>
+        </div>
+
+        <div class="container grid grid--2-cols margin-bottom-md">
+          <div class="pricing-plan pricing-plan--starter">
+            <header class="plan-header">
+              <p class="plan-name">Entry</p>
+              <p class="plan-price"><span>₹</span>399</p>
+              <p class="plan-text">Maintanace for 1 month</p>
+            </header>
+            <ul class="list">
+              <li class="list-item">
+                <ion-icon class="list-icon" name="checkmark-outline"></ion-icon>
+                <span>Flexible billing</span>
+              </li>
+              <li class="list-item">
+                <ion-icon class="list-icon" name="checkmark-outline"></ion-icon>
+                <span>Priority Support</span>
+              </li>
+              <li class="list-item">
+                <ion-icon class="list-icon" name="checkmark-outline"></ion-icon>
+                <span>Incresed storage</span>
+              </li>
+              <li class="list-item">
+                <ion-icon class="list-icon" name="close-outline"></ion-icon>
+                <span>Marketing Assistance</span>
+              </li>
+            </ul>
+            <div class="plan-sing-up">
+              <a href="#" class="btn btn--full">Grow your Business</a>
+             
+            </div>
+          </div>
+
+          <div class="pricing-plan pricing-plan--complete">
+            <header class="plan-header">
+              <p class="plan-name">Complete</p>
+              <p class="plan-price"><span>₹</span>649</p>
+              <p class="plan-text">lifetime Maintanace</p>
+            </header>
+            <ul class="list">
+              <li class="list-item">
+                <ion-icon class="list-icon" name="checkmark-outline"></ion-icon>
+                <span>More Features</span>
+              </li>
+              <li class="list-item">
+                <ion-icon class="list-icon" name="checkmark-outline"></ion-icon>
+                <span>Marketing Assistance</span>
+              </li>
+              <li class="list-item">
+                <ion-icon class="list-icon" name="checkmark-outline"></ion-icon>
+                <span>Exclusive Content</span>
+              </li>
+              <li class="list-item">
+                <ion-icon class="list-icon" name="checkmark-outline"></ion-icon>
+                <span>Get access to latest Updates</span>
+              </li>
+            </ul>
+            <div class="plan-sing-up">
+              <a href="#" class="btn btn--full">Grow your Business</a>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="section-cta" id="cta">
+        <div class="container">
+          <div class="cta">
+            <div class="cta-text-box">
+              <h2 class="heading-secondary">Need assistance or have questions?</h2>
+              <p class="cta-text">
+                Our customer care team is here for you. Feel free to reach out anytime. Your satisfaction is our priority!
+              </p>
+
+              <form class="cta-form" name="sign-up" netlify>
+                <div>
+                  <label for="full-name">Full Name</label>
+                  <input
+                    id="full-name"
+                    type="text"
+                    placeholder="Metta Surendhar"
+                    name="full-name"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label for="email">Email address</label>
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder="name@example.com"
+                    name="email"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label for="select-where">Where did you hear from us?</label>
+                  <select id="select-where" name="select-where" required>
+                    <option value="">Please choose one option:</option>
+                    <option value="friends">Friends and family</option>
+                    <option value="youtube">YouTube video</option>
+                    <option value="podcast">Podcast</option>
+                    <option value="ad">Facebook ad</option>
+                    <option value="others">Others</option>
+                  </select>
+                </div>
+
+                <button class="btn btn--form">Sign up now</button>
+
+                <!-- <input type="checkbox" />
+                <input type="number" /> -->
+              </form>
+            </div>
+            <div
+              class="cta-img-box"
+              role="img"
+              aria-label="Woman enjoying food"
+            ></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container grid grid--footer">
+        <div class="logo-col">
+          <a href="#" class="footer-logo">
+            <img class="logo" alt="Omnifood logo" src="data:image/png;base64,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" />
+          </a>
+
+          <ul class="social-links">
+            <li>
+              <a class="footer-link" href="#"
+                ><ion-icon class="social-icon" name="logo-instagram"></ion-icon
+              ></a>
+            </li>
+            <li>
+              <a class="footer-link" href="#"
+                ><ion-icon class="social-icon" name="logo-facebook"></ion-icon
+              ></a>
+            </li>
+            <li>
+              <a class="footer-link" href="#"
+                ><ion-icon class="social-icon" name="logo-twitter"></ion-icon
+              ></a>
+            </li>
+          </ul>
+
+          <p class="copyright">
+    
+          </p>
+        </div>
+
+        <div class="address-col">
+          <p class="footer-heading">Contact us</p>
+          <address class="contacts">
+            <p class="address">
+              No 623, Ambedkar St., 4th Floor, Chennai, TamilNadu
+            </p>
+            <p>
+              <a class="footer-link" href="tel:415-201-6370">+91 52525 35353</a
+              ><br />
+              <a class="footer-link" href="mailto:hello@omnifood.com"
+                >zyper@gmail.com</a
+              >
+            </p>
+          </address>
+        </div>
+
+        <nav class="nav-col">
+          <p class="footer-heading">Account</p>
+          <ul class="footer-nav">
+            <li><a class="footer-link" href="#">Create account</a></li>
+            <li><a class="footer-link" href="#">Sign in</a></li>
+            <li><a class="footer-link" href="#">iOS app</a></li>
+            <li><a class="footer-link" href="#">Android app</a></li>
+          </ul>
+        </nav>
+
+        <nav class="nav-col">
+          <p class="footer-heading">Company</p>
+          <ul class="footer-nav">
+            <li><a class="footer-link" href="#">About Zyper</a></li>
+            <li><a class="footer-link" href="#">For Business</a></li>
+            <li><a class="footer-link" href="#">Business partners</a></li>
+            <li><a class="footer-link" href="#">Careers</a></li>
+          </ul>
+        </nav>
+
+        <nav class="nav-col">
+          <p class="footer-heading">Resources</p>
+          <ul class="footer-nav">
+            <li><a class="footer-link" href="#">Recipe directory </a></li>
+            <li><a class="footer-link" href="#">Help center</a></li>
+            <li><a class="footer-link" href="#">Privacy & terms</a></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>
+

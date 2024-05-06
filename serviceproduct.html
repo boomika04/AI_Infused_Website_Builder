@@ -1,0 +1,41 @@
+{% extends 'home.html' %}
+{% block content %}
+    <style>
+        /* Internal CSS for Services/Products Section */
+        .services-section {
+            background-color:{{bg2_color}};
+            padding: 50px 0;
+        }
+        
+        .service {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .service h3 {
+            color:{{tx1_color}};
+            margin-bottom: 10px;
+        }
+        .service p {
+            color: {{tx2_color}};
+        }
+    </style>
+    {{ block.super }}
+    <div class="hover-section">
+    
+    <section class="services-section">
+        <div class="service">
+            <h3>Services</h3>
+            <p></p>
+        </div>
+    </section>
+    
+    <button class="edit-button" >Edit</button>
+  </div>
+  
+{% endblock %}

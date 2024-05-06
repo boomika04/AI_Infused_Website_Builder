@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three Iframes Example</title>
+  <style>
+    /* Basic styling */
+    .unique-body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+    
+    /* Navbar styling */
+    .unique-navbar {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+      width: 100%;
+      height: 80px;
+    }
+    
+    /* Sidebar styling */
+    .unique-sidebar {
+      display: none;
+      width: 200px;
+      background-color: #f4f4f4;
+      float: left;
+      padding: 20px;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto; /* Enable scrolling if content overflows */
+      top: 0;
+    }
+    
+    /* Main content styling */
+    .unique-main-content {
+      margin-left: 0; /* Adjust for sidebar width */
+      padding: 20px;
+      padding-top: 50px; /* Adjust for navbar height */
+    }
+    
+    /* Iframe styling */
+    .unique-iframe-container {
+      overflow-y: auto;
+      position: fixed;
+      top: 80px; /* Adjust for navbar height */
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow-x: hidden;
+    }
+    
+    .unique-iframe-container object {
+      width: 100%;
+      height: auto; /* Adjust as needed */
+    }
+
+    /* Mini-page styling */
+    .mini-page {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: calc(50% + 0px); /* Adjust for the distance from the sidebar */
+      transform: translate(-50%, -50%);
+      background-color: white;
+      border: 2px solid black;
+      padding: 20px;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body class="unique-body">
+  <!-- Navbar -->
+  <navbar>
+    <div class="unique-navbar">
+      <h2>Navbar</h2>
+      <!-- Button to toggle sidebar -->
+      <button id="toggle-sidebar">Toggle Sidebar</button>
+    </div>
+  </navbar>
+
+  <!-- Sidebar -->
+  <div class="unique-sidebar" id="sidebar">
+    <h3>Sidebar</h3>
+    <ul>
+      <li>
+        <!-- Button to show mini-page -->
+        <button id="show-mini-page">Show Mini Page</button>
+        <!-- Mini-page content -->
+        <div id="mini-page" class="mini-page">
+          <button id="close-mini-page">Close</button>
+          <h2>Mini Page</h2>
+          {% include 'pallete.html' %}
+          
+          <p>This is a mini-page displayed when clicking the button.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Main content -->
+  <div class="unique-main-content">
+    <h2>Main Content</h2>
+    <div class="unique-iframe-container">
+      {% include 'footer.html' %}
+    </div>
+  </div>
+
+  <!-- JavaScript to toggle sidebar and show/hide the mini-page -->
+  <script>
+    const toggleSidebarButton = document.getElementById('toggle-sidebar');
+    const sidebar = document.getElementById('sidebar');
+    const showMiniPageButton = document.getElementById('show-mini-page');
+    const miniPage = document.getElementById('mini-page');
+    const closeMiniPageButton = document.getElementById('close-mini-page');
+
+    toggleSidebarButton.addEventListener('click', () => {
+      // Toggle sidebar visibility
+      if (sidebar.style.display === 'none' || sidebar.style.display === '') {
+        sidebar.style.display = 'block';
+      } else {
+        sidebar.style.display = 'none';
+      }
+    });
+
+    showMiniPageButton.addEventListener('click', () => {
+      miniPage.style.display = 'block';
+    });
+
+    closeMiniPageButton.addEventListener('click', () => {
+      miniPage.style.display = 'none';
+    });
+  </script>
+</body>
+</html>

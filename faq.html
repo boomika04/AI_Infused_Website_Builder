@@ -1,0 +1,36 @@
+{% extends 'about.html' %}
+{% block content %}
+{{ block.super }}
+    <style>
+        /* Internal CSS for FAQs Section */
+        .faq-section {
+            background-color: {{bg1_color}};
+            padding: 50px 0;
+        }
+        
+        .faq {
+            max-width: 600px;
+            margin: 0 auto;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+        }
+        
+        .question {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .answer {
+            color: #666;
+        }
+    </style>
+
+    <section class="faq-section">
+        <div class="faq">
+            <p class="question"></p>
+        </div>
+    </section>
+
+
+{% endblock %}

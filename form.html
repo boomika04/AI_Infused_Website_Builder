@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Form</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+  <script src="{% static 'js/form.js' %}" defer></script>
+  <style>
+    
+/*
+ * Copyright (c) 2012-2013 Thibaut Courouble
+ * http://www.cssflow.com
+ * Licensed under the MIT License
+ *
+ * Sass/SCSS source: https://goo.gl/UhXKg
+ * PSD by Vin Thomas: https://goo.gl/n1M2e
+ */
+
+body {
+  font: 13px/20px "Lucida Grande", Tahoma, Verdana, sans-serif;
+  color: #404040;
+  background: #2a2a2a;
+}
+
+.container {
+  margin: 60px auto;
+  width: 400px;
+  text-align: center;
+
+}
+
+.container .progress {
+  margin: 0 auto;
+  width: 400px;
+}
+
+.progress {
+  padding: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.progress-bar {
+  height: 16px;
+  border-radius: 4px;
+	background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+  background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+  background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+  -webkit-transition: 0.4s linear;
+  -moz-transition: 0.4s linear;
+  -o-transition: 0.4s linear;
+  transition: 0.4s linear;
+  -webkit-transition-property: width, background-color;
+  -moz-transition-property: width, background-color;
+  -o-transition-property: width, background-color;
+  transition-property: width, background-color;
+  -webkit-box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.1);
+}
+.label {
+  font-size: 20px;
+    font-weight: 500;
+    background-color: #e1b01e;
+    padding: 15px 30px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.label:hover {
+  background-color: #ba800c;
+  border-color: #070808;
+}
+
+
+
+
+/*
+ * Note: using adjacent or general sibling selectors combined with
+ *       pseudo classes doesn't work in Safari 5.0 and Chrome 12.
+ *       See this article for more info and a potential fix:
+ *       https://css-tricks.com/webkit-sibling-bug/
+ */
+
+#five:checked ~ .progress > .progress-bar {
+  width: 5%;
+  background-color: #f63a0f;
+}
+
+#twentyfive:checked ~ .progress > .progress-bar {
+  width: 25%;
+  background-color: #f27011;
+}
+
+#fifty:checked ~ .progress > .progress-bar {
+  width: 50%;
+  background-color: #f2b01e;
+}
+
+#seventyfive:checked ~ .progress > .progress-bar {
+  width: 75%;
+  background-color: #f2d31b;
+}
+
+#onehundred:checked ~ .progress > .progress-bar {
+  width: 100%;
+  background-color: #86e01e;
+}
+
+.radio {
+  display: none;
+}
+
+
+.radio:checked + .label {
+  color: white;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+  </style>
+</head>
+
+<body><center>
+
+  <div class="container">
+    <input type="radio" class="radio" name="progress" value="five" id="five" checked>
+  
+    <input type="radio" class="radio" name="progress" value="twentyfive" id="twentyfive">
+    Step1
+  
+    <input type="radio" class="radio" name="progress" value="fifty" id="fifty">
+    Step2
+  
+    <input type="radio" class="radio" name="progress" value="seventyfive" id="seventyfive">
+    Step3
+  
+    <input type="radio" class="radio" name="progress" value="onehundred" id="onehundred">
+    Step4
+  
+    <div class="progress">
+      <div class="progress-bar"></div>
+    </div>
+  </div>
+
+  <form data-multi-step class="multi-step-form" action="{% url 'n' %}">
+<center>
+    <div class="card" data-step>
+<br><br>
+      <h3 class="step-title"  id="five">Type of Business</h3><br><br>
+      <div class="form-group"><br>      <center>  <select id="business_type" name="business_type">
+            <option value="restaurant">Restaurant</option>
+            <option value="bakery">Bakery</option>
+            <option value="clothing">Clothing</option>
+            <option value="beauty">Beauty</option>
+            <option value="cafe">Cafe</option>
+            <option value="mechanical_shop">Mechanical Shop</option>
+            <option value="marketing_company">Marketing Company</option>
+            <option value="photography">Photography</option>
+            <option value="car_sales">Car Sales</option>
+            <option value="Gym & Fitness">Gym & Fitness</option>
+        </select></center><br>
+      </div><br>
+      
+      <label for="twentyfive" class="label" type="button" data-next for="five">Next</label>
+    </div>
+    <div class="card" data-step><center><br><br>
+      <h3 class="step-title">Brand Name</h3>
+      <div class="form-group"><center><br><br>
+        <input type="text" id="brand_name" name="brand_name" required></center><br><br>
+      </div>
+      <label for="five" class="label"type="button" data-previous>Previous</label>
+      <label for="fifty" class="label" type="button" data-next>Next</label>
+      
+    </div>
+    <div class="card" data-step><center>
+      <br><br>
+      <h3 class="step-title">Location</h3><br><br>
+      <div class="form-group"><center>
+        <input type="text" id="location" name="location" required></center><br><br>
+      </div><br><br>
+      <label for="twentyfive" class="label"type="button" data-previous>Previous</label>
+      <label for="seventyfive" class="label" type="button" data-next>Next</label>
+    </div>
+    <div class="card" data-step>
+      <h3 class="step-title">Description</h3>
+      <div class="form-group">
+        <label for="description"></label><br>
+        <center><textarea id="description" name="description" rows="4" cols="50" required></textarea></center><br><br>
+      </div>
+      <label for="fifty" class="label"type="button" data-previous>Previous</label>
+      <label for="onehundred" class="label" type="button" data-next>Next</label>
+    </div>
+
+      <div class="card" data-step><br><br>
+       <center> <button type="submit" type="button">Submit</button></center>
+        <img src="https://www.formpl.us/static/images/features/builder.svg" height="300" width="300">
+      
+    </div>
+</center>
+  </form></center>
+  {% include 'loader.html' %}
+  
+</body>
+</html>

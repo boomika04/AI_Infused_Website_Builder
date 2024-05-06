@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preloader Example</title>
+    <style>
+        /* Styles for the preloader */
+        #preloader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999; /* ensure it's above other content */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(50, 47, 47, 0.7); /* semi-transparent white */
+        }
+
+        /* Importing Google font - Inter */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        /* Unique styles for the preloader */
+        #preloader h1 {
+            color: #fff;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        #preloader h1 span {
+            color: #BD53ED;
+            position: relative;
+        }
+
+        #preloader h1 span::before {
+            content: "";
+            height: 30px;
+            width: 2px;
+            position: absolute;
+            top: 50%;
+            right: -8px;
+            background: #BD53ED;
+            transform: translateY(-45%);
+            animation: blink 0.7s infinite;
+        }
+
+        #preloader h1 span.stop-blinking::before {
+            animation: none;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0 }
+        }
+    </style>
+</head>
+<body>
+
+<div id="preloader-container">
+    <div id="preloader">
+        <div class="loading-text">
+            <h1>Picking <span></span></h1>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to show the preloader
+    function showPreloader() {
+        var preloader = document.getElementById("preloader-container");
+        preloader.style.display = "flex"; // Show the preloader
+    }
+
+    // Function to hide the preloader
+    function hidePreloader() {
+        var preloader = document.getElementById("preloader-container");
+        preloader.style.display = "none"; // Hide the preloader
+    }
+
+    // Show the preloader when a navigation event starts
+    window.addEventListener("beforeunload", showPreloader);
+
+    // Hide the preloader when the new page has finished loading
+    window.addEventListener("load", hidePreloader);
+
+    const dynamicText = document.querySelector("#preloader h1 span");
+    const words = ["Color palette", "Layout", "Images", "Content"];
+
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    const typeEffect = () => {
+        const currentWord = words[wordIndex];
+        const currentChar = currentWord.substring(0, charIndex);
+        dynamicText.textContent = currentChar;
+        dynamicText.classList.add("stop-blinking");
+
+        if (!isDeleting && charIndex < currentWord.length) {
+            charIndex++;
+            setTimeout(typeEffect, 100);
+        } else if (isDeleting && charIndex > 0) {
+            charIndex--;
+            setTimeout(typeEffect, 50);
+        } else {
+            isDeleting = !isDeleting;
+            dynamicText.classList.remove("stop-blinking");
+            wordIndex = !isDeleting ? (wordIndex + 1) % words.length : wordIndex;
+            setTimeout(typeEffect, 800);
+        }
+    }
+
+    typeEffect();
+</script>
+
+</body>
+</html>

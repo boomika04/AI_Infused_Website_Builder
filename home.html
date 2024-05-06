@@ -1,0 +1,106 @@
+
+{% extends "navbar.html" %}
+
+{% block content %}
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+  
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+
+        <link href="https://www.tooplate.com/templates/2132_clean_work/css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="https://www.tooplate.com/templates/2132_clean_work/css/bootstrap-icons.css" rel="stylesheet">
+
+        <link href="https://www.tooplate.com/templates/2132_clean_work/css/tooplate-clean-work.css" rel="stylesheet">
+<style>
+.hero-section {
+
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    background: linear-gradient(45deg, #ff8a00, #e52e71);
+    animation-name: backgroundTransition;
+    animation-duration: 30s; /* Set the duration of the transition */
+    animation-timing-function: ease; /* Set the timing function */
+    animation-iteration-count: infinite; /* Make the transition repeat infinitely */
+}
+
+@keyframes backgroundTransition {
+    0% {
+        background-image: url({{img1}});
+    }
+    33.33% {
+        background-image: url({{img1}});
+    }
+    66.66% {
+        background-image: url({{img1}});
+    }
+    100% {
+        background-image: url({{img1}}); /* Repeat the cycle */
+    }
+}
+
+</style>
+    </head>
+    
+  
+
+    
+            <section class="hero-section hero-section-full-height d-flex justify-content-center align-items-center">
+                <div class="section-overlay"></div>
+
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-7 col-12 text-center mx-auto">
+                            <h1 class="cd-headline rotate-1 text-white mb-4 pb-2">
+                                <span>{{h_head}}</span>
+                <p>{{h_sub}}</p>
+                                </span>
+                            </h1>
+
+                            <a class="custom-btn btn button button--atlas smoothscroll me-3" style="background-color: {{bg2_color}};" href="#intro-section">
+                                <span>Lean more</span>
+
+                                
+                                
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,224L40,229.3C80,235,160,245,240,250.7C320,256,400,256,480,240C560,224,640,192,720,176C800,160,880,160,960,138.7C1040,117,1120,75,1200,80C1280,85,1360,139,1400,165.3L1440,192L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path></svg>
+            </section>
+
+   
+
+
+        <!-- JAVASCRIPT FILES -->
+        <script src="https://www.tooplate.com/templates/2132_clean_work/js/jquery.min.js"></script>
+        <script src="https://www.tooplate.com/templates/2132_clean_work/js/bootstrap.min.js"></script>
+        <script src="https://www.tooplate.com/templates/2132_clean_work/js/jquery.backstretch.min.js"></script>
+        <script src="https://www.tooplate.com/templates/2132_clean_work/js/counter.js"></script>
+        <script src="https://www.tooplate.com/templates/2132_clean_work/js/countdown.js"></script>
+        <script src="https://www.tooplate.com/templates/2132_clean_work/js/init.js"></script>
+        <script src="https://www.tooplate.com/templates/2132_clean_work/js/modernizr.js"></script>
+        <script src="https://www.tooplate.com/templates/2132_clean_work/js/animated-headline.js"></script>
+        <script src="https://www.tooplate.com/templates/2132_clean_work/js/animated-headline.js"></script>
+
+    
+    {% endblock %}
+
+</html>
+

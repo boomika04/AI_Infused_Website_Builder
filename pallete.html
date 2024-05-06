@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Color Palette Generator | CodingNepal</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Import Google font */
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    body {
+      background: #E3F2FD;
+    }
+
+    .container {
+      margin: 20px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding-top: 30px;
+    }
+
+    .container .color {
+      margin: 12px;
+      padding: 3px;
+      list-style: none;
+      cursor: pointer;
+      text-align: center;
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: 0 10px 25px rgba(52, 87, 220, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .container .color:active {
+      transform: scale(0.95);
+    }
+
+    .color .rect-box {
+      width: 25px;
+      height: 28px;
+      border-radius: 4px;
+    }
+
+    .color.selected .rect-box {
+      border: 2px solid #000; /* Change border color for selected colors */
+    }
+
+    .color:hover .rect-box {
+      filter: brightness(107%);
+    }
+
+    .color .hex-value {
+      display: block;
+      color: #444;
+      user-select: none;
+      font-weight: 500;
+      font-size: 0.45rem;
+      margin: 12px 0 8px;
+      text-transform: uppercase;
+    }
+
+    .refresh-btn {
+      padding-left: 10px;
+      left: 50%;
+      bottom: 100px;
+      color: #fff;
+      cursor: pointer;
+      outline: none;
+      font-weight: 500;
+      font-size: 0.65rem;
+      border-radius: 5px;
+      background: #8A6CFF;
+      padding: 3px 5px;
+      border: 2px solid #fff;
+      transform: translateX(-50%);
+      box-shadow: 0 15px 30px rgba(52, 87, 220, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .refresh-btn:hover {
+      background: #704dff;
+    }
+
+    .next-btn {
+    
+      left: 50%;
+      bottom: 40px;
+      color: #fff;
+      cursor: pointer;
+      outline: none;
+      font-weight: 500;
+      font-size: 0.65rem;
+      border-radius: 5px;
+      background: #0af20a;
+      padding: 3px 5px;
+      border: 2px solid #fff;
+      transform: translateX(-50%);
+      box-shadow: 0 15px 30px rgba(52, 87, 220, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .next-btn:hover {
+      background: #4e97bf;
+    }
+
+    .disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+
+<body>
+  <ul class="container"></ul>
+  <center>
+  <form id="color-form" method="post" action="{% url 'next_page' %}">
+    {% csrf_token %}
+    <input type="hidden" name="color1" id="color1">
+    <input type="hidden" name="color2" id="color2">
+    <button type="submit" class="next-btn disabled">Next</button>
+  </form></center>
+ <center> <button class="refresh-btn">Refresh Palette</button></center>
+  <script>
+    const container = document.querySelector(".container");
+    const refreshBtn = document.querySelector(".refresh-btn");
+    const nextBtn = document.querySelector(".next-btn");
+    let selectedColors = [];
+
+    const maxPaletteBoxes = 10;
+
+    const generatePalette = () => {
+      container.innerHTML = ""; // clearing the container
+      for (let i = 0; i < maxPaletteBoxes; i++) {
+        // generating a random hex color code
+        let randomHex = Math.floor(Math.random() * 0xffffff).toString(16);
+        randomHex = `#${randomHex.padStart(6, "0")}`;
+
+        // creating a new 'li' element and inserting it to the container
+        const color = document.createElement("li");
+        color.classList.add("color");
+        color.innerHTML = `<div class="rect-box" style="background: ${randomHex}"></div>
+                       <span class="hex-value">${randomHex}</span>`;
+        // adding click event to current li element to select or unselect the color
+        color.addEventListener("click", () => toggleSelectColor(color, randomHex));
+        container.appendChild(color);
+      }
+    }
+    generatePalette();
+
+    const toggleSelectColor = (elem, hexVal) => {
+      const index = selectedColors.indexOf(hexVal);
+      if (index !== -1) {
+        // Unselect the color
+        elem.classList.remove("selected");
+        selectedColors.splice(index, 1);
+      } else if (selectedColors.length < 2) { // Allow selection only if less than 2 colors are selected
+        // Select the color
+        elem.classList.add("selected");
+        selectedColors.push(hexVal);
+      }
+      // Enable or disable the next button based on the number of selected colors
+      updateNextButtonState();
+    }
+
+    const updateNextButtonState = () => {
+      if (selectedColors.length === 2) {
+        nextBtn.classList.remove("disabled"); // Enable the next button
+      } else {
+        nextBtn.classList.add("disabled"); // Disable the next button
+      }
+    }
+
+    refreshBtn.addEventListener("click", () => {
+      selectedColors = [];
+      container.querySelectorAll(".color").forEach(item => {
+        item.classList.remove("selected");
+        item.classList.remove("disabled");
+      });
+      nextBtn.classList.add("disabled"); // Disable the next button
+      generatePalette();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      const color1Input = document.getElementById("color1");
+      const color2Input = document.getElementById("color2");
+      color1Input.value = selectedColors[0];
+      color2Input.value = selectedColors[1];
+    });
+  </script>
+</body>
+
+</html>

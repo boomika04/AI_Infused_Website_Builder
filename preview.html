@@ -1,0 +1,42 @@
+{% extends 'footer.html' %}
+{% block content %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Boxicons CSS -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <title>Side Navigation Bar in HTML CSS JavaScript</title>
+    <link rel="stylesheet" href="style.css" />
+<style>
+#save-button {
+    text-decoration: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #cf711f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#preview-button {
+  text-decoration: none;
+  position: fixed;
+  top: 20px;
+  right: 120px;
+  padding: 10px 20px;
+  background-color: #cf711f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+</style>
+{{ block.super }}
+<body>
+<a id="preview-button" href="/n" >Back</a>
+<a id="save-button" href="{% url 'n' %}">Host</a>
+</body>
+{% endblock %}
